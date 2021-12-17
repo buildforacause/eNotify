@@ -26,7 +26,7 @@ import re
 def NewEntry(*args):
     email=EmailValue.get()
     phone=PhoneValue.get()
-    dataset=pd.read_excel('Data\Recipients.xlsx')
+    dataset=pd.read_excel('Recipients.xlsx')
     #this helps us put email column into an numpy array
     emaildataset=dataset.iloc[:,-2].values
     phonedataset=dataset.iloc[:-1]
@@ -34,13 +34,13 @@ def NewEntry(*args):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Z|a-z]{2,}\b'
 
     if (re.fullmatch(regex, email) and email not in emaildataset):
-        wb=load_workbook("Data\Recipients.xlsx")
+        wb=load_workbook("Recipients.xlsx")
         ws=wb.worksheets[0]#this is the sheet number
         ws_tables=[]
         ws[f"B{row}"]=email    
         if (phone not in phonedataset):
             ws[f"C{row}"]=phone
-        wb.save('Data\Recipients.xlsx')
+        wb.save('Recipients.xlsx')
         newWindow.destroy()
     else:
         messagebox.showinfo("Invalid Email","The email you've entered is invalid. Please enter another email.")
